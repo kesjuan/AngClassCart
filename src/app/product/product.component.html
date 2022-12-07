@@ -1,0 +1,43 @@
+
+<div class="container-fluid">
+    <div class="row"> 
+        <div class="table-responsive-sm">
+            <p>You have {{qtyCount()}} items in your cart </p>
+            <!-- can call methods with brackets also  -->
+            <table class="table">
+                <thead>
+                  <tr >
+                    <th scope="col">Item</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col"> Price</th>
+                    <th scope="col"></th>
+                    <th scope="col">Qty</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="tablerow1" *ngFor="let i of products" [class.featured]="i.featured" >
+                    <!-- *ngfor runs a loop and i is the variable to access properties -->
+                    <td><img [src]="i.image" id="foodlogo" alt="{{i.name}} photo"></td>
+                    <td>{{i.name}}</td>
+                    <td></td>
+                    <td>{{i.price | currency:'EUR':true}}</td>
+                    <td><button type="button" (click)="decreaseQty(i)" class="btn btn-danger"> - </button></td>
+                    <td><input type="number" [(ngModel)] ="i.qty"></td>
+                    <td><button type="button" (click)="increaseQty(i)" class="btn btn-success"> + </button></td>
+                    <td *ngIf="i.qty > 0" style = "color: green"> Enjoy your {{i.name}}</td>
+                    <td *ngIf="i.qty === 0" style = "color: red"> No {{i.name}} Today?</td>
+                    <td *ngIf="i.qty > i.inStock" style= "color: blue;"> We've only got {{i.inStock}} left in stock</td>
+                    
+                    
+                    
+                  </tr>
+                 
+                </tbody>
+              </table>
+            <h3>Your total is {{priceTotal() | currency:'EUR':true}}</h3> 
+        </div>
+        </div>
+    </div>
